@@ -15,6 +15,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding?=null
 
     private val binding get() = _binding!!
+    private val PREFS_NAME = "MyPrefs"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +32,8 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
 
         Toast.makeText(context,"hello to home creating ", Toast.LENGTH_SHORT).show()
+
+
         return binding.root
     }
 
@@ -38,6 +42,7 @@ class HomeFragment : Fragment() {
         Toast.makeText(context,"hello to home created  ", Toast.LENGTH_SHORT).show()
 
         // Now you can access views using binding
+        // Write a message to the database
 
 
     }

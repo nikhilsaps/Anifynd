@@ -1,7 +1,10 @@
 package com.nikhilsaps.anifynd
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.ktx.Firebase
 import com.nikhilsaps.anifynd.databinding.ActivityMainBinding
 import com.nikhilsaps.anifynd.fragments.AnimeDBFragment
 import com.nikhilsaps.anifynd.fragments.HomeFragment
@@ -10,6 +13,8 @@ import com.nikhilsaps.anifynd.fragments.ReadDBFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
+    private val PREFS_NAME = "MyPrefsFile"
+    private val FIRST_TIME_KEY = "firstTime"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,12 +22,34 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        //run this once  to  make  the home fragment appear  on launch
-        supportFragmentManager.beginTransaction().apply {
-            replace(binding.mainFragContainer.id,HomeFragment())
-            addToBackStack(null)
-            commit()
+        val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val firstTime = sharedPref.getBoolean(FIRST_TIME_KEY, true)
+
+        if (firstTime) {
+            // The app is opened for the first time
+            // Launch the activity you want to run on the first opening
+            val intent = Intent(this, OneTimeActivity::class.java)
+            startActivity(intent)
+
+            // Set the flag to false in shared preferences
+            with(sharedPref.edit()) {
+                putBoolean(FIRST_TIME_KEY, false)
+                apply()
+            }
+        } else {
+            // The app has been opened before
+            supportFragmentManager.beginTransaction().apply {
+                replace(binding.mainFragContainer.id,HomeFragment())
+                addToBackStack(null)
+                commit()
+            }
+
+            // Continue with the normal flow or launch another activity if needed
         }
+
+
+        //run this once  to  make  the home fragment appear  on launch
+
 
         binding.mainBtmNav.setOnItemSelectedListener { item ->
             when(item.itemId){
@@ -68,11 +95,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        binding.temptext.text= "ni mai ni rok sakta  tujhe "
+        val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val currentUser=sharedPref.getString("currentUser","").toString()
+        binding.currentuserimg.text=currentUser
+
+
     }
 
     override fun onResume() {
         super.onResume()
+
+
     }
 
     override fun onPause() {
