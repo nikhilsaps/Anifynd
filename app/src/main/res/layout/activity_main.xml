@@ -19,6 +19,7 @@
             android:layout_height="48dp"
             android:padding="8dp"/>
         <TextView
+            android:textColor="?attr/customTextColor"
             android:id="@+id/currentuserimg"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -46,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/btm_nav"
-        app:itemIconTint="@color/white"/>
+        app:itemIconTint="?attr/iconTint"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

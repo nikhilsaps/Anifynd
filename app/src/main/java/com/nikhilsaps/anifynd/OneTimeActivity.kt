@@ -1,6 +1,7 @@
 package com.nikhilsaps.anifynd
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -20,6 +21,7 @@ class OneTimeActivity : AppCompatActivity() {
 
             editor.putString("currentUser", "Assi")
             editor.apply()
+            startActivity(Intent(this , MainActivity::class.java))
             finish()
 
         }
@@ -27,6 +29,7 @@ class OneTimeActivity : AppCompatActivity() {
             Toast.makeText(this,"the User is set to nikhil",Toast.LENGTH_SHORT).show()
             editor.putString("currentUser", "Nikhil")
             editor.apply()
+            startActivity(Intent(this , MainActivity::class.java))
             finish()
 
 

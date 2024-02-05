@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val firstTime = sharedPref.getBoolean(FIRST_TIME_KEY, true)
-
+            //checking if the app is launched 1st time
         if (firstTime) {
             // The app is opened for the first time
             // Launch the activity you want to run on the first opening
             val intent = Intent(this, OneTimeActivity::class.java)
             startActivity(intent)
-
+            finish()
             // Set the flag to false in shared preferences
             with(sharedPref.edit()) {
                 putBoolean(FIRST_TIME_KEY, false)
@@ -38,19 +38,14 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             // The app has been opened before
+            //run this once  to  make  the home fragment appear  on launch
             supportFragmentManager.beginTransaction().apply {
                 replace(binding.mainFragContainer.id,HomeFragment())
                 addToBackStack(null)
                 commit()
             }
-
             // Continue with the normal flow or launch another activity if needed
         }
-
-
-        //run this once  to  make  the home fragment appear  on launch
-
-
         binding.mainBtmNav.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.home_frag ->{
@@ -59,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                         addToBackStack(null)
                         commit()
                     }
-
                     true
                 }
                 R.id.list_frag ->{
@@ -69,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                         commit()
                     }
                     true
-
                 }
                 R.id.anime_frag ->{
                     supportFragmentManager.beginTransaction().apply {

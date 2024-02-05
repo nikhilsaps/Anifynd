@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.nikhilsaps.anifynd.databinding.FragmentHomeBinding
 
 
@@ -15,7 +17,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding?=null
 
     private val binding get() = _binding!!
-    private val PREFS_NAME = "MyPrefs"
+//    val db = Firebase.firestore
 
 
 
@@ -43,6 +45,18 @@ class HomeFragment : Fragment() {
 
         // Now you can access views using binding
         // Write a message to the database
+
+//        db.collection("AnimeDB")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    binding.textfirestore.text="${document.id} => ${document.data}"
+//                    Log.d("TAG", "${document.id} => ${document.data}")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("TAG", "Error getting documents.", exception)
+//            }
 
 
     }
