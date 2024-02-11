@@ -19,22 +19,19 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:padding="4dp"
-            android:text="Finished/Stored"/>
+            android:text="Finished/Stored" />
 
     </LinearLayout>
 
-
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/readdb_compose_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="26dp"
+        android:id="@+id/MangaRecycView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/read_frag_header" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/read_frag_header"
+        tools:listitem="@layout/manga_card"/>
 
 
 
