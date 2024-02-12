@@ -1,5 +1,6 @@
 package com.nikhilsaps.anifynd.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.nikhilsaps.anifynd.MangaData
+import com.nikhilsaps.anifynd.MangaRecycDataset
 import com.nikhilsaps.anifynd.adapters.MangaRecycAdapter
 import com.nikhilsaps.anifynd.databinding.FragmentReadDBBinding
 
@@ -21,6 +25,7 @@ class ReadDBFragment : Fragment() {
 
 
     private var _binding: FragmentReadDBBinding?=null
+    private val PREFS_NAME = "MyPrefsFile"
 
 
     private val binding get() = _binding!!
@@ -42,44 +47,41 @@ class ReadDBFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentReadDBBinding.inflate(inflater,container,false)
 
-        Toast.makeText(context,"hello to Read creating ", Toast.LENGTH_SHORT).show()
+
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context,"hello to read created  ", Toast.LENGTH_SHORT).show()
-        var dataset= arrayOf("nikhil")
-
-       // var MangaData:MutableList<MangaData>
-
-        db.collection("MangaDB")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-
-                    Log.d("TAG", "${document.id} => ${document.data["name"]}")
-                }
+       // Toast.makeText(context,"hello to read created  ", Toast.LENGTH_SHORT).show()
+        var mlist = context?.let { getMangaList(it) }
+        var dataset :ArrayList<MangaRecycDataset> = ArrayList()
+        if (mlist != null) {
+            for ( data in mlist){
+                dataset.add(MangaRecycDataset(data.name,data.imgsrc))
             }
-            .addOnFailureListener { exception ->
-                Log.w("TAG", "Error getting documents.", exception)
+        }
+
+       // val dataset = arrayOf("January", "February", "March","April","May","June","July","August","September","October","Novenber","December",  "January", "February", "March","April","May","June","July","August","September","October","Novenber","December")
+
+        val mangaAdapter= context?.let {
+            MangaRecycAdapter(dataset, it){ position ->
+                // Handle item click here
+                Toast.makeText(context, "Item clicked at position ${mlist?.get(position)}", Toast.LENGTH_SHORT).show()
             }
-
-
-
-        //val dataset = arrayOf("January", "February", "March","April","May","June","July","August","September","October","Novenber","December",  "January", "February", "March","April","May","June","July","August","September","October","Novenber","December")
-
-        val mangaAdapter=MangaRecycAdapter(dataset){ position ->
-            // Handle item click here
-            Toast.makeText(context, "Item clicked at position ${dataset[position]}", Toast.LENGTH_SHORT).show()
         }
         val layoutManager = GridLayoutManager(context,3, RecyclerView.VERTICAL,false)
         binding.MangaRecycView.layoutManager = layoutManager
         binding.MangaRecycView.adapter=mangaAdapter
 
-
-
+    }
+    fun getMangaList(context: Context): ArrayList<MangaData> {
+        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("KEY_MANGA_LIST", null)
+        val type = object : TypeToken<ArrayList<MangaData>>() {}.type
+        return gson.fromJson(json, type) ?: ArrayList()
     }
 
     override fun onStart() {

@@ -4,7 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.nikhilsaps.anifynd.databinding.ActivityMainBinding
 import com.nikhilsaps.anifynd.fragments.AnimeDBFragment
 import com.nikhilsaps.anifynd.fragments.HomeFragment
@@ -92,7 +96,32 @@ class MainActivity : AppCompatActivity() {
         val currentUser=sharedPref.getString("currentUser","").toString()
         binding.currentuserimg.text=currentUser
 
+        fetchmangadata()
 
+
+    }
+    private fun fetchmangadata() {
+        val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        val db = Firebase.firestore
+        var MangaList:ArrayList<MangaData> = ArrayList()
+
+        db.collection("MangaDB")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var manga = MangaData(document.data["name"].toString(),document.data["mcname"].toString(),document.data["imgsrc"].toString(),document.data["assi_read"].toString(), document.data["nik_read"].toString(),document.data["desc"].toString())
+                    MangaList.add(manga)
+                    // Log.d("TAG", "${document.id} => ${document.data}, ${MangaList[0]}")
+                }
+                Log.d("TAG", " ${MangaList[0]}")
+                val gson = Gson()
+                val json = gson.toJson(MangaList)
+                editor.putString("KEY_MANGA_LIST", json).apply()
+            }
+            .addOnFailureListener { exception ->
+                Log.w("TAG", "Error getting documents.", exception)
+            }
     }
 
     override fun onResume() {

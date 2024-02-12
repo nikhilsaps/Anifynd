@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
 
-        Toast.makeText(context,"hello to home creating ", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(context,"hello to home creating ", Toast.LENGTH_SHORT).show()
 
 
         return binding.root
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context,"hello to home created  ", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context,"hello to home created  ", Toast.LENGTH_SHORT).show()
 
         // Now you can access views using binding
         // Write a message to the database

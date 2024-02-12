@@ -32,8 +32,6 @@ class OneTimeActivity : AppCompatActivity() {
             startActivity(Intent(this , MainActivity::class.java))
             finish()
 
-
-
         }
     }
 }

@@ -4,9 +4,8 @@ data class MangaData(
     var name :String,
     var mcname:String,
     var imgsrc:String,
-    var assi_read :Int,
-    var nik_read:Int,
+    var assi_read :String,
+    var nik_read:String,
     var desc:String
-
 
 )
