@@ -57,6 +57,8 @@ class ReadDBFragment : Fragment() {
        // Toast.makeText(context,"hello to read created  ", Toast.LENGTH_SHORT).show()
         var mlist = context?.let { getMangaList(it) }
         var dataset :ArrayList<MangaRecycDataset> = ArrayList()
+
+
         if (mlist != null) {
             for ( data in mlist){
                 dataset.add(MangaRecycDataset(data.name,data.imgsrc))
