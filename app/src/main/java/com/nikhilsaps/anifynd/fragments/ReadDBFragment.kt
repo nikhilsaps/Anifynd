@@ -1,6 +1,7 @@
 package com.nikhilsaps.anifynd.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,8 +16,11 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.nikhilsaps.anifynd.AddMangaActivity
 import com.nikhilsaps.anifynd.MangaData
+import com.nikhilsaps.anifynd.MangaPageActivity
 import com.nikhilsaps.anifynd.MangaRecycDataset
+import com.nikhilsaps.anifynd.OneTimeActivity
 import com.nikhilsaps.anifynd.adapters.MangaRecycAdapter
 import com.nikhilsaps.anifynd.databinding.FragmentReadDBBinding
 
@@ -71,6 +75,7 @@ class ReadDBFragment : Fragment() {
             MangaRecycAdapter(dataset, it){ position ->
                 // Handle item click here
                 Toast.makeText(context, "Item clicked at position ${mlist?.get(position)}", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(context,MangaPageActivity::class.java).putExtra("pagedata",mlist?.get(position)?.name))
             }
         }
         val layoutManager = GridLayoutManager(context,3, RecyclerView.VERTICAL,false)
@@ -89,6 +94,11 @@ class ReadDBFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d("READ", "onRestart: Activity start")
+        binding.flmangaAddBtn.setOnClickListener {
+//            Toast.makeText(context,"floating button pressed ",Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, AddMangaActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

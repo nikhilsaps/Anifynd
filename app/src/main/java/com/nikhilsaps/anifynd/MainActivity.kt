@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     private val PREFS_NAME = "MyPrefsFile"
     private val FIRST_TIME_KEY = "firstTime"
+    private lateinit var MangaList:ArrayList<MangaData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             //checking if the app is launched 1st time
         if (firstTime) {
             // The app is opened for the first time
-            // Launch the activity you want to run on the first opening
             val intent = Intent(this, OneTimeActivity::class.java)
             startActivity(intent)
             finish()
@@ -41,46 +42,54 @@ class MainActivity : AppCompatActivity() {
                 apply()
             }
         } else {
-            // The app has been opened before
-            //run this once  to  make  the home fragment appear  on launch
+            /*This means its not first time launched hence set  home fragment as  the  main
+            entry point of the app
+            */
+
             supportFragmentManager.beginTransaction().apply {
                 replace(binding.mainFragContainer.id,HomeFragment())
-                addToBackStack(null)
+                //addToBackStack(null)
                 commit()
             }
-            // Continue with the normal flow or launch another activity if needed
         }
+
+        //bottom navigation setup in the  main activity
+
         binding.mainBtmNav.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.home_frag ->{
                     supportFragmentManager.beginTransaction().apply {
                         replace(binding.mainFragContainer.id,HomeFragment())
-                        addToBackStack(null)
+                        //addToBackStack(null)
                         commit()
+
                     }
                     true
                 }
                 R.id.list_frag ->{
                     supportFragmentManager.beginTransaction().apply {
                         replace(binding.mainFragContainer.id,ListFragment())
-                        addToBackStack(null)
+                        //addToBackStack(null)
                         commit()
+
                     }
                     true
                 }
                 R.id.anime_frag ->{
                     supportFragmentManager.beginTransaction().apply {
                         replace(binding.mainFragContainer.id,AnimeDBFragment())
-                        addToBackStack(null)
+                        //addToBackStack(null)
                         commit()
+
                     }
                     true
                 }
                 R.id.read_frag ->{
                     supportFragmentManager.beginTransaction().apply {
                         replace(binding.mainFragContainer.id,ReadDBFragment())
-                        addToBackStack(null)
+                        //addToBackStack(null)
                         commit()
+
                     }
                     true
                 }
@@ -88,23 +97,39 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-    }
 
+    }
+//on start of the function  wil load up data
     override fun onStart() {
         super.onStart()
         val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val currentUser=sharedPref.getString("currentUser","").toString()
         binding.currentuserimg.text=currentUser
-
         fetchmangadata()
 
 
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        hidesystemUI()
+
+
+    }
+
+    private fun hidesystemUI() {
+        window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        }
+    }
+
     private fun fetchmangadata() {
         val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         val db = Firebase.firestore
-        var MangaList:ArrayList<MangaData> = ArrayList()
+//        var MangaList:ArrayList<MangaData> = ArrayList()
+        MangaList = ArrayList()
 
         db.collection("MangaDB")
             .get()
@@ -122,27 +147,5 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("TAG", "Error getting documents.", exception)
             }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
     }
 }
