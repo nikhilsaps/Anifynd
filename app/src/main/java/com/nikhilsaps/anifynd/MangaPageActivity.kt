@@ -2,6 +2,7 @@ package com.nikhilsaps.anifynd
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.nikhilsaps.anifynd.databinding.ActivityAddMangaBinding
 import com.nikhilsaps.anifynd.databinding.ActivityMangaPageBinding
 
@@ -14,6 +15,7 @@ class MangaPageActivity : AppCompatActivity() {
         setContentView(view)
         val ss:String = intent.getStringExtra("pagedata").toString()
         binding.mangaPageText.text= ss
+        Log.d("TAG", "MangaPageActivity :OnCreate()")
 
 
     }

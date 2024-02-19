@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        Log.d("TAG", "MainActivity :OnCreate()")
 
         val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val firstTime = sharedPref.getBoolean(FIRST_TIME_KEY, true)
@@ -102,10 +103,11 @@ class MainActivity : AppCompatActivity() {
 //on start of the function  wil load up data
     override fun onStart() {
         super.onStart()
+    Log.d("TAG", "MainActivity :OnStart()")
         val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val currentUser=sharedPref.getString("currentUser","").toString()
         binding.currentuserimg.text=currentUser
-        fetchmangadata()
+        //fetchmangadata()
 
 
 
@@ -114,6 +116,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         hidesystemUI()
+        Log.d("TAG", "MainActivity :OnResume()")
 
 
     }
@@ -147,5 +150,16 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("TAG", "Error getting documents.", exception)
             }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("TAG", "MainActivity :OnPause()")
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("TAG", "MainActivity :OnStop()")
     }
 }

@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("TAG", "Home Fragment :OnCreate()")
 
     }
 
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
 
-       // Toast.makeText(context,"hello to home creating ", Toast.LENGTH_SHORT).show()
+        Log.d("TAG", "Home Fragment :OnCreateView()")
 
 
         return binding.root
@@ -41,36 +42,31 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Toast.makeText(context,"hello to home created  ", Toast.LENGTH_SHORT).show()
-
-        // Now you can access views using binding
-        // Write a message to the database
-
-//        db.collection("AnimeDB")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    binding.textfirestore.text="${document.id} => ${document.data}"
-//                    Log.d("TAG", "${document.id} => ${document.data}")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w("TAG", "Error getting documents.", exception)
-//            }
+        Log.d("TAG", "Home Fragment :OnViewCreated()")
 
 
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("Home", "onRestart: Activity start")
-
+        Log.d("TAG", "Home Fragment :OnStart()")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("Home", "onRestart: Activity resumed")
+        Log.d("TAG", "Home Fragment :OnResume()")
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("TAG", "Home Fragment :OnPause()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("TAG", "Home Fragment :OnStop()")
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

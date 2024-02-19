@@ -17,8 +17,7 @@ class OneTimeActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         binding.userAssi.setOnClickListener{
-            Toast.makeText(this,"the User is set to assi",Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(this,"the User is set to Assi",Toast.LENGTH_SHORT).show()
             editor.putString("currentUser", "Assi")
             editor.apply()
             startActivity(Intent(this , MainActivity::class.java))
@@ -26,7 +25,7 @@ class OneTimeActivity : AppCompatActivity() {
 
         }
         binding.userNikhil.setOnClickListener{
-            Toast.makeText(this,"the User is set to nikhil",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"the User is set to Nikhil",Toast.LENGTH_SHORT).show()
             editor.putString("currentUser", "Nikhil")
             editor.apply()
             startActivity(Intent(this , MainActivity::class.java))

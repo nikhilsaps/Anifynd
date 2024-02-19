@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +39,7 @@ class ReadDBFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("TAG", "Read Fragment :OnCreate()")
 
 
     }
@@ -51,14 +51,15 @@ class ReadDBFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentReadDBBinding.inflate(inflater,container,false)
 
-
+        Log.d("TAG", "Read Fragment :OnCreateView()")
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // Toast.makeText(context,"hello to read created  ", Toast.LENGTH_SHORT).show()
+
+        Log.d("TAG", "Read Fragment :OnViewCreated()")
         var mlist = context?.let { getMangaList(it) }
         var dataset :ArrayList<MangaRecycDataset> = ArrayList()
 
@@ -68,13 +69,10 @@ class ReadDBFragment : Fragment() {
                 dataset.add(MangaRecycDataset(data.name,data.imgsrc))
             }
         }
-
-       // val dataset = arrayOf("January", "February", "March","April","May","June","July","August","September","October","Novenber","December",  "January", "February", "March","April","May","June","July","August","September","October","Novenber","December")
-
         val mangaAdapter= context?.let {
             MangaRecycAdapter(dataset, it){ position ->
                 // Handle item click here
-                Toast.makeText(context, "Item clicked at position ${mlist?.get(position)}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Item clicked at position ${mlist?.get(position)}", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(context,MangaPageActivity::class.java).putExtra("pagedata",mlist?.get(position)?.name))
             }
         }
@@ -93,9 +91,9 @@ class ReadDBFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Log.d("READ", "onRestart: Activity start")
+        Log.d("TAG", "Read Fragment :OnStart()")
         binding.flmangaAddBtn.setOnClickListener {
-//            Toast.makeText(context,"floating button pressed ",Toast.LENGTH_SHORT).show()
+
             val intent = Intent(context, AddMangaActivity::class.java)
             startActivity(intent)
         }
@@ -104,7 +102,17 @@ class ReadDBFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("READ", "onRestart: Activity resumed")
+        Log.d("TAG", "Read Fragment :OnResume()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("TAG", "Read Fragment :OnPause()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("TAG", "Read Fragment :OnStop()")
     }
 
     override fun onDestroyView() {

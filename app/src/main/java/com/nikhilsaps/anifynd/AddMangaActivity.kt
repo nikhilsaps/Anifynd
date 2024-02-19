@@ -15,31 +15,30 @@ class AddMangaActivity : AppCompatActivity() {
         binding= ActivityAddMangaBinding.inflate(layoutInflater)
         val view =binding.root
         setContentView(view)
+        Log.d("TAG", "AddMangaActivity :OnCreate()")
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("TAG", "AddMangaActivity :OnStart()")
         binding.submitNewManga.setOnClickListener {
             var  newMangaName=binding.newmangaName.text
             var newMangaMcname=binding.newmangaMcname.text
             var newMangaDesc=binding.newmangaDesc.text
             var newMangaAssiread =binding.newmangaAssiread.text
             var newMangaNikread =binding.newmangaNikread.text
-            var newMangaImgsrc= binding.newmangaImgsrc.text
 
-            addDataInDB(newMangaAssiread.toString(),newMangaDesc.toString(),newMangaImgsrc.toString(),newMangaMcname.toString(),newMangaName.toString(),newMangaNikread.toString())
+
+            addDataInDB(newMangaAssiread.toString(),newMangaDesc.toString(),newMangaMcname.toString(),newMangaName.toString(),newMangaNikread.toString())
 
         }
 
-
-
-
     }
-    fun addDataInDB(assi_read:String,desc:String,imgsrc:String,mcname:String,name:String,nik_read:String){
+    fun addDataInDB(assi_read:String,desc:String,mcname:String,name:String,nik_read:String){
         val user = hashMapOf(
             "assi_read" to assi_read,
             "desc" to desc,
-            "imgsrc" to imgsrc,
+            "imgsrc" to "imgsrc",
             "mcname" to mcname,
             "name" to name,
             "nik_read" to nik_read
