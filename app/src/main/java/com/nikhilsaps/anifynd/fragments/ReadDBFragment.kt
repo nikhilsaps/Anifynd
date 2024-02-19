@@ -72,8 +72,18 @@ class ReadDBFragment : Fragment() {
         val mangaAdapter= context?.let {
             MangaRecycAdapter(dataset, it){ position ->
                 // Handle item click here
-//                Toast.makeText(context, "Item clicked at position ${mlist?.get(position)}", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(context,MangaPageActivity::class.java).putExtra("pagedata",mlist?.get(position)?.name))
+                Log.d("TAG","${mlist?.get(position)}")
+                startActivity(Intent(context,MangaPageActivity::class.java)
+                    .putExtra("pageMangaName",mlist?.get(position)?.name)
+                    .putExtra("pageImgsrc",mlist?.get(position)?.imgsrc)
+                    .putExtra("pageAssiread",mlist?.get(position)?.assi_read)
+                    .putExtra("pageNikread",mlist?.get(position)?.nik_read)
+                    .putExtra("pageDesc",mlist?.get(position)?.desc)
+                    .putExtra("pageMcname",mlist?.get(position)?.mcname)
+                    .putExtra("pageDocId",mlist?.get(position)?.docID)
+
+
+                )
             }
         }
         val layoutManager = GridLayoutManager(context,3, RecyclerView.VERTICAL,false)

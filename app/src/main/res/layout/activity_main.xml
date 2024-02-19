@@ -21,6 +21,7 @@
         <TextView
             android:textColor="?attr/customTextColor"
             android:id="@+id/currentuserimg"
+            android:fontFamily="@font/poor_story"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="8dp"

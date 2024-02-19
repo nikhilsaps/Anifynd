@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val currentUser=sharedPref.getString("currentUser","").toString()
         binding.currentuserimg.text=currentUser
-        //fetchmangadata()
+        fetchmangadata()
 
 
 
@@ -138,9 +138,9 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    var manga = MangaData(document.data["name"].toString(),document.data["mcname"].toString(),document.data["imgsrc"].toString(),document.data["assi_read"].toString(), document.data["nik_read"].toString(),document.data["desc"].toString())
+                    var manga = MangaData(document.id,document.data["name"].toString(),document.data["mcname"].toString(),document.data["imgsrc"].toString(),document.data["assi_read"].toString(), document.data["nik_read"].toString(),document.data["desc"].toString())
                     MangaList.add(manga)
-                    // Log.d("TAG", "${document.id} => ${document.data}, ${MangaList[0]}")
+                    Log.d("TAG", "${document.id} => ${document.data}, ${MangaList[0]}")
                 }
                 Log.d("TAG", " ${MangaList[0]}")
                 val gson = Gson()

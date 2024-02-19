@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="Nik"
+            android:fontFamily="@font/poor_story"
             android:gravity="center"/>
 
     </androidx.cardview.widget.CardView>
@@ -38,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp"
+            android:fontFamily="@font/poor_story"
             android:gravity="center"
             android:text="Assi" />
 

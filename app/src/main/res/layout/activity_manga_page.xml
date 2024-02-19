@@ -6,13 +6,200 @@
     android:layout_height="match_parent"
     tools:context=".MangaPageActivity">
 
-    <TextView
-        android:id="@+id/mangaPageText"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mangaImageCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        app:cardCornerRadius="30px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/mangaImage"
+            android:layout_width="300px"
+            android:layout_height="440px" />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/manganame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:fontFamily="@font/poor_story"
+        android:text="Manga Name"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/mangaImageCard"
+        app:layout_constraintTop_toTopOf="@+id/mangaImageCard" />
+
+    <TextView
+        android:id="@+id/mangaMcName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poor_story"
+        android:text="MC Name"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/manganame"
+        app:layout_constraintTop_toBottomOf="@+id/manganame" />
+
+    <TextView
+        android:id="@+id/mangaAssi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poor_story"
+
+        android:text="Manga Assi. Read"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/mangaMcName"
+        app:layout_constraintTop_toBottomOf="@+id/mangaMcName" />
+
+    <TextView
+        android:id="@+id/mangaNik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poor_story"
+        android:text="Manga Assi. Read"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/mangaAssi"
+        app:layout_constraintTop_toBottomOf="@+id/mangaAssi" />
+
+    <TextView
+        android:id="@+id/MangaDescTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/poor_story"
+        android:text="Manga Description"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/mangaImageCard"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/MangaDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poor_story"
+        android:gravity="center"
+        android:text="Manga Description"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/MangaDescTitle"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/MangaDesc">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/edit_name"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:layout_weight=".20"
+                android:background="@drawable/editbtn" />
+
+            <ImageButton
+                android:id="@+id/edit_aread"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:layout_weight=".20"
+                android:background="@drawable/editbtn" />
+
+            <ImageButton
+                android:id="@+id/edit_mname"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:layout_weight=".20"
+                android:background="@drawable/editbtn" />
+
+            <ImageButton
+                android:id="@+id/edit_nread"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:layout_weight=".20"
+                android:background="@drawable/editbtn" />
+
+            <ImageButton
+                android:id="@+id/edit_desc"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="8dp"
+                android:layout_weight=".20"
+                android:background="@drawable/editbtn" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+
+            <TextView
+                android:labelFor="@id/edit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:gravity="center"
+                android:text="Name" />
+
+            <TextView
+                android:labelFor="@id/edit_aread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:gravity="center"
+                android:text="Assi\nRead" />
+
+            <TextView
+                android:labelFor="@id/edit_mname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:gravity="center"
+                android:text="Manga\nName" />
+
+            <TextView
+                android:labelFor="@id/edit_nread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:gravity="center"
+                android:text="Nik\nREad" />
+
+            <TextView
+                android:labelFor="@id/edit_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                android:gravity="center"
+                android:text="desc" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
