@@ -124,7 +124,7 @@
                 android:background="@drawable/editbtn" />
 
             <ImageButton
-                android:id="@+id/edit_mname"
+                android:id="@+id/edit_mcname"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_margin="8dp"
@@ -174,12 +174,12 @@
                 android:text="Assi\nRead" />
 
             <TextView
-                android:labelFor="@id/edit_mname"
+                android:labelFor="@id/edit_mcname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.20"
                 android:gravity="center"
-                android:text="Manga\nName" />
+                android:text="Manga\nMC" />
 
             <TextView
                 android:labelFor="@id/edit_nread"
