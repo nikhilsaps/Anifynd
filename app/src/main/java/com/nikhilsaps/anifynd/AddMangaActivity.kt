@@ -48,6 +48,7 @@ class AddMangaActivity : AppCompatActivity() {
             .add(user)
             .addOnSuccessListener { documentReference ->
                 Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference.id}")
+                finish()
             }
             .addOnFailureListener { e ->
                 Log.w("TAG", "Error adding document", e)

@@ -41,8 +41,8 @@ class MangaPageActivity : AppCompatActivity() {
             .load(ImgeSrc)
             .placeholder(R.drawable.temp_drawable)
             .into(binding.mangaImage);
-        binding.manganame.text = "Name : " + MangaName
-        binding.MangaDesc.text = Desc + docID
+        binding.manganame.text = "Manga Name : \n" + MangaName
+        binding.MangaDesc.text = Desc
         binding.mangaAssi.text = "Assi. Read : " + Assiread
         binding.mangaNik.text = "Nik. Read : " + NikRead
         binding.mangaMcName.text = "MC Name : " + McName
