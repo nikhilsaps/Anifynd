@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "581434853757",
+    "project_id": "anifynd",
+    "storage_bucket": "anifynd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581434853757:android:94bf04d1de80f021e22414",
+        "android_client_info": {
+          "package_name": "com.nikhilsaps.anifynd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDqRrUOnyjtYt3W6qVRW1rbx1RPmLV6Vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
