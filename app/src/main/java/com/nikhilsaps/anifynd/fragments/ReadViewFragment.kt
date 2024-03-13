@@ -1,60 +1,96 @@
 package com.nikhilsaps.anifynd.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.nikhilsaps.anifynd.AddNewManga
 import com.nikhilsaps.anifynd.R
+import com.nikhilsaps.anifynd.adapters.AdapterReadViewRecycler
+import com.nikhilsaps.anifynd.databinding.FragmentReadViewBinding
+import com.nikhilsaps.anifynd.datamodels.ReadRecycDataModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ReadViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ReadViewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentReadViewBinding?=null
+    private val binding get() = _binding!!
+    private val PREFS_NAME = "MyPrefsFile"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_read_view, container, false)
+    ): View {
+       _binding =FragmentReadViewBinding.inflate(inflater,container,false)
+        return binding.root
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReadViewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ReadViewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var dataset: ArrayList<ReadRecycDataModel> = ArrayList()
+        //dataset.add(ReadRecycDataModel("21","nikk","sad","das","dasdasd"))
+        var mlist = context?.let { getMangaList(it) }
+        if (mlist != null) {
+            for ( data in mlist){
+                dataset.add(ReadRecycDataModel(data.DocID,data.name,data.nikreadcount,data.assireadcount,data.descofmanga))
+            }
+        }
+
+        var mangaAdapter: AdapterReadViewRecycler? = null
+        context?.let { ctx ->
+            mangaAdapter = AdapterReadViewRecycler(dataset, ctx) { position ->
+                // Handle item click here
+                val selectedItem = mangaAdapter?.filteredList?.getOrNull(position)
+                selectedItem?.let { item ->
+                    Log.d("TAG", "ooouch how dare ${item.name}")
                 }
             }
+        }
+
+        val layoutManager = LinearLayoutManager(context)
+        binding.readfragmentrecyclerview.layoutManager = layoutManager
+        binding.readfragmentrecyclerview.adapter = mangaAdapter
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                mangaAdapter?.filter(s.toString())
+            }
+        })
+        binding.addNewMangafloatingbtn.setOnClickListener {
+            startActivity(Intent(context, AddNewManga::class.java))
+        }
+
+
     }
+
+    fun getMangaList(context: Context): ArrayList<ReadRecycDataModel> {
+        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("KEY_MANGA_LIST", null)
+        val type = object : TypeToken<ArrayList<ReadRecycDataModel>>() {}.type
+        return gson.fromJson(json, type) ?: ArrayList()
+    }
+
+
 }
