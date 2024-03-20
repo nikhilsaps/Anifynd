@@ -23,10 +23,21 @@ class MainActivity : AppCompatActivity() {
         val view =binding.root
         setContentView(view)
         fetchmangadata()
-        supportFragmentManager.beginTransaction().apply {
-            replace(binding.fragmentView.id,ReadViewFragment())
-            //addToBackStack(null)
-            commit()
+
+        binding.mainBtmNav.setOnItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.readableFrag ->{
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(binding.fragmentView.id,ReadViewFragment())
+                        //addToBackStack(null)
+                        commit()
+                    }
+                    true
+                }
+
+                else -> false
+
+            }
         }
 
     }
