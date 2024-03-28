@@ -10,13 +10,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nikhilsaps.anifynd.AddNewManga
-import com.nikhilsaps.anifynd.R
 import com.nikhilsaps.anifynd.adapters.AdapterReadViewRecycler
 import com.nikhilsaps.anifynd.databinding.FragmentReadViewBinding
 import com.nikhilsaps.anifynd.datamodels.ReadRecycDataModel
@@ -80,8 +77,6 @@ class ReadViewFragment : Fragment() {
         binding.addNewMangafloatingbtn.setOnClickListener {
             startActivity(Intent(context, AddNewManga::class.java))
         }
-
-
     }
 
     fun getMangaList(context: Context): ArrayList<ReadRecycDataModel> {
@@ -91,6 +86,4 @@ class ReadViewFragment : Fragment() {
         val type = object : TypeToken<ArrayList<ReadRecycDataModel>>() {}.type
         return gson.fromJson(json, type) ?: ArrayList()
     }
-
-
 }
